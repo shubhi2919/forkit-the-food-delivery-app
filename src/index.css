@@ -98,3 +98,10 @@
   .search-btn{
         margin-left: 5px;
   }
+
+  .user-info{
+    border: 1px solid;
+    width: 230px;
+    height: auto;
+    padding: 15px;
+  }

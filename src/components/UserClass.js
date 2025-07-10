@@ -3,55 +3,72 @@ class UserClass extends React.Component{
     constructor(props){
         console.log("Child constructor called");
          super(props);
-         //we need to call super(props) to access this.props in the constructor
-        // React Router caught the following error during render ReferenceError: Must call 
-        // super constructor in derived 
-        // class before accessing 'this' or returning from derived constructor
-        // console.log(props);
         //State variables 
         this.state = {
-            count:0,
-            count2:2,
+           userInfo:{
+                name:"default name",
+                location:"default location",
+                bio:"default bio",
+                //this was throwing err since url is dummy
+                // avatar_url:"https://dummy.avatars.githubusercontent.com"
+           }
         }
     }
      
-    componentDidMount(){
+    async componentDidMount(){
         console.log("Child componentDidMount called");
+       const data =  await fetch('https://api.github.com/users/shubhi2919');
+       const json = await data.json();
+    //    console.log(json);
+       //update state var with the fetched data
+       this.setState({userInfo:json});
     }
-//Lifecycle methods are used to perform side effects in class components
-//  Lifecycle methods are called in a specific order
-//  Parent constructor called
-//  Parent render called
-//  Child constructor called
-//  Child render called
-//  Child componentDidMount called
-//  Parent componentDidMount called
+    
+    componentDidUpdate(){
+        console.log("Child componentDidUpdate called");
+        //this is called when the component is updated
+        //we can use this to perform side effects like fetching data
+        //or updating the state based on props change
+    }
+     componentWillUnmount(){
+        console.log("Child componentWillUnmount called");
+        //this is called when the component is unmounted
+        //we can use this to clean up resources like timers, event listeners, etc.
+     }
+
+     /**
+      * 
+      * Parent constructor called
+        AboutUs.js:28 Parent render called
+        UserClass.js:4 Child constructor called
+        UserClass.js:40 Child render called
+        UserClass.js:19 Child componentDidMount called
+        AboutUs.js:13 Parent componentDidMount called
+        UserClass.js:40 Child render called
+        UserClass.js:28 Child componentDidUpdate called
+        AboutUs.js:23 parent componentWillUnmount called
+        UserClass.js:34 Child componentWillUnmount called
+      */
     render(){
         //destructuring props
          console.log("Child render called");
-        const {name} = this.props;
+        // const {name} = this.props;
         //destructuring state var
-        const {count,count2} = this.state;
+        const{name,bio,location,avatar_url} = this.state.userInfo;
+        
           return (
              <div className="user-info">
-                 <p>Count : {count}</p>
-                 {/* update state var */}
-                 <button onClick={()=>{
-                    this.setState(
-                        {
-                        count: this.state.count +1,
-                        count2 : this.state.count2 +1,//if we want to update multiple state variables at once, we can do it like this
-                    }
-                );
-                 }}>Increase Count</button>
-                  <p>Count2 : {count2}</p>
-                {/* <p>Count : {this.state.count}</p> */}
+                 
+               
                 {/* //destructure */}
-                 <p>Name : {name}</p>
+                 {/* <p>Name : {name}</p> */}
                 {/* <p>Name : {this.props.name}</p> */}
             {/* <p>Name : Shubhi Bhatnagar</p> */}
-            <p>Location : Hyderabad</p>
-            <p>Bio : Software Engineer</p>
+            {/* <p>Name: {this.state.userInfo.name}</p> */}
+            <img src = {avatar_url} style={{width:"100px",height:"100px"}}/>
+             <p>Name: {name}</p>
+            <p>Location : {location}</p>
+            <p>Bio : {bio}</p>
         </div>
         )
 
