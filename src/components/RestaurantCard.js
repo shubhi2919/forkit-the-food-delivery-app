@@ -13,8 +13,8 @@ const RestaurantCard = (props) => {
   //destructuring on the fly (below line)
   // const RestaurantCard = ({resName, cuisine}) => {
   return (
-    <div className='res-card' style={styleCard}>
-      <img alt='card-logo' style={{width:"100%"}} 
+    <div className='res-card m-4 p-4 w-[220px] rounded-lg break-words bg-gray-100 hover:bg-gray-200' >
+      <img alt='card-logo' className="rounded-lg" style={{width:"100%"}} 
       // str concatenation is js so used curly braces {}
       src={CDN_IMG_URL+resData.info.cloudinaryImageId}/>
       {/* use props to get the values passed from parent component */}
@@ -22,7 +22,7 @@ const RestaurantCard = (props) => {
       {/* <h3>{props.resName}</h3>
       <h4>{props.cuisine}</h4> */}
       {/* using destructured value */}
-      <h3>{resData.info.name}</h3>
+      <h3 className="font-bold py-3 text-lg">{resData.info.name}</h3>
       <h4>{resData.info?.cuisines.join(",")}</h4>
       <h4>{resData.info.costForTwo}</h4>
        <h4>{resData.info?.avgRating} stars</h4>

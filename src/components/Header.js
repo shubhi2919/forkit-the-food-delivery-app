@@ -15,24 +15,26 @@ const Header = () =>{
   let onlineStatus = useOnlineStatus();
 
   return (
-    <div className='header'>
-      <div className='logo-container'>
-        <img className='logo' src={LOGO_URL}/>
-        <h1 className='logo-name'>ForkIt</h1>
+    <div className='flex justify-between  bg-gray-100 shadow-lg'>
+      <div className='flex items-center gap-2 m-4 logo-container'>
+        <img className='w-[60px]' src={LOGO_URL}/>
+        <span  className="text-2xl font-bold">ForkIt</span>    
       </div>
-      <div className='nav-items'>
-         <ul>
-          <li>Online Status : {onlineStatus?"✅":"🔴"}</li>
-          <li><Link to={"/"}>Home</Link></li>
-          <li><Link to={"grocery"}>Grocery</Link></li>
-          <li><Link to={"about"}>About Us</Link></li>
-          <li><Link to={"contact"}>Contact Us</Link></li>
-          <li>Cart</li>
+   
+       {/* <h1  className="text-3xl font-bold flex items-center justify-between">ForkIt</h1> */}
+      <div className='items-center'>
+         <ul className="font-medium flex p-4 m-4" >
+          <li className="px-4"> {onlineStatus?"✅":"🔴"} Online Status</li>
+          <li className="px-4"><Link to={"/"}>🏠 Home</Link></li>
+          <li className="px-4"><Link to={"grocery"}>🥗 Grocery</Link></li>
+          <li className="px-4"><Link to={"about"}>👥 About Us</Link></li>
+          <li className="px-4"><Link to={"contact"}>☎️ Contact Us</Link></li>
+          <li className="px-4">🛒 Cart</li>
           <button onClick={
             ()=>{
               setIsLoggedIn(isLoggedIn===false);
             }
-          } className="login">{isLoggedIn?"Login":"LogOff"}</button>
+          } className="login">🤵🏻 {isLoggedIn?"Login":"LogOff"}</button>
          </ul>
       </div>
     </div>

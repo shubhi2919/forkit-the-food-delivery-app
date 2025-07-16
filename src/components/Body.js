@@ -67,15 +67,15 @@ if(onlineStatus === false){
 
   return listOfRestaurants.length === 0? <Shimmer/> :(
     <div className='body'>
-      <div className='filter'>
-        <div className="search">
+      <div className='filter flex justify-between items-center'>
+        <div className="search m-4 p-4">
           {/* bind value with local state var */}
-          <input className="search-box" type="text" value={searchText} onChange={
+          <input className="border border-solid border-black" type="text" value={searchText} onChange={
             (e)=>{
               setSearchText(e.target.value);
             }
           }/>
-          <button className="search-btn" onClick={
+          <button className="search-btn m-4 px-4 py-0.5 bg-green-100 rounded-lg" onClick={
             ()=>{
               // searching is happening on the listOfRestaurants state variable which has all data
              const searchedResult =  listOfRestaurants.filter((res)=>{
@@ -86,7 +86,8 @@ if(onlineStatus === false){
             }
           } >Search</button>
         </div>
-        <button className="filter-btn" 
+        <div>
+            <button className="filter-btn  m-4 px-4 py-0.5 bg-green-100 rounded-lg" 
         onClick={() => {
             //filter the restaurant data
           //  listOfRestaurants =  listOfRestaurants.filter((res)=> res.info.avgRating >= 4);
@@ -98,8 +99,10 @@ if(onlineStatus === false){
           setFilterRestaurants(filteredList);
         }}>
             Top-rated Restaurant</button>
+        </div>
+    
       </div>
-      <div className='res-container'>
+      <div className='res-container flex flex-wrap'>
         {/* restaurant card component */}
         {/* pass the properties(props) as resObj which is an object */}
          {/* {

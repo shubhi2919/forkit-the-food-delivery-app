@@ -1,4 +1,10 @@
-.header{
+/* @import "tailwindcss"; */
+
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
+/* .header{
   display: flex;
   justify-content: space-between;
 }
@@ -37,7 +43,7 @@
 .res-card{
      width: 250px; 
     /* height: 380px;  */
-    border: 1px solid black;
+    /* border: 1px solid black;
     margin: 10px;
   h3{
     text-align: center;
@@ -104,4 +110,4 @@
     width: 230px;
     height: auto;
     padding: 15px;
-  }
+  } */ 
