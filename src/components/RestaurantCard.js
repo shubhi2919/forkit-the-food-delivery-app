@@ -35,4 +35,22 @@ const RestaurantCard = (props) => {
   )
 }
 
+//contract of HIGHER ORDER COMPONENT
+//it will take RestaurantCard as i/p and return a new component which will tell if res is open or closed
+export const isRestaurantOpen = (RestaurantCard)=>{
+  //read/recieve  the props from RestaurantCard thats why wrote props
+  return (props)=>{
+    //  console.log(props)
+     
+    return(
+     
+      <div>
+        <label className="absolute bg-black p-3 m-2 rounded-lg text-white">Open Now </label>
+        <RestaurantCard {...props}/>
+      </div>
+    )
+  }
+}
+
+
 export default RestaurantCard;

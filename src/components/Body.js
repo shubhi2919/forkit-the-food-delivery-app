@@ -1,4 +1,4 @@
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard , {isRestaurantOpen} from "./RestaurantCard";
 import resData from "../utils/mockData";
 import { use, useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
@@ -17,6 +17,9 @@ const [listOfRestaurants,setListOfRestaurants] = useState([]);
 
 const [filterRestaurants, setFilterRestaurants] = useState([]);
 const [searchText, setSearchText] = useState("");
+
+//this is function that we get from HOC component
+const RestaurantOpenComponent = isRestaurantOpen(RestaurantCard)
   //useEffect hook
   // useEffect(()=>{
   //   console.log("useEffect called");
@@ -27,6 +30,7 @@ const [searchText, setSearchText] = useState("");
     fetchData();
    },
    []);
+   console.log("this is list of restaurants",listOfRestaurants);
  //use async function to fetch data from API and await for the response
    const fetchData = async() =>{
       const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.406498&lng=78.47724389999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
@@ -40,6 +44,7 @@ const [searchText, setSearchText] = useState("");
        setListOfRestaurants( json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);//do same for filterRestaurants 
       setFilterRestaurants(json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle?.restaurants);
    }
+ 
    
    //spinner while api loads data
    //condional rendering
@@ -112,8 +117,16 @@ if(onlineStatus === false){
         } */}
          {
           filterRestaurants.map((res) => (
-            
-           <Link key={res?.info.id} to={"/restaurants/"+res?.info.id}><RestaurantCard  resData={res} /></Link> 
+            //higher order component will modify restaurant card component if isOn label is present
+          
+           <Link key={res?.info.id} to={"/restaurants/"+res?.info.id}>
+              {
+                 
+              res?.info?.isOpen?<RestaurantOpenComponent resData={res}/>: <RestaurantCard  resData={res} />
+              
+              /* {
+              res?.info?.promoted?<RestaurantOpenComponent resData={res}/>: <RestaurantCard  resData={res} />} */}
+           </Link> 
           ))
           
         }
