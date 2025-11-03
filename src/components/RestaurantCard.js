@@ -1,10 +1,17 @@
+import { useContext } from "react";
 import {CDN_IMG_URL} from "../utils/constants";
+import UserContext from "../utils/UserContext";
 //inline css in react
 const styleCard = {
   backgroundColor: "#f0f0f0",
   boxShadow: "0 4px 8px rgba(0,0,0,0.2)"
 }
+
+
+
 const RestaurantCard = (props) => {
+  //use context
+const {loggedInuser} = useContext(UserContext)
   // console.log(props); // Object = cuisine: "South Indian", resName: "Rameshwaram Cafe"
 //Object= cuisine: "Continental", resName: "KFC"
 //destructuring props
@@ -27,6 +34,7 @@ const RestaurantCard = (props) => {
       <h4>{resData.info.costForTwo}</h4>
        <h4>{resData.info?.avgRating} stars</h4>
       <h4>{resData.info?.sla.deliveryTime} mins</h4>
+      <h4>{loggedInuser}</h4>
       {/* <h3>Rameshwaram Cafe</h3>
       <h4>South Indian</h4> */}
       {/* <h4>4.3 stars</h4>

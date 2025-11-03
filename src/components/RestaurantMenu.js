@@ -1,10 +1,12 @@
 import Shimmer from "./Shimmer";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import useMenuInfo from "../utils/useMenuInfo";
 import RestaurantCategory from "./RestaurantCategory";
 
-const RestaurantMenu = () =>{
 
+const RestaurantMenu = () =>{
+      const [showIndex,setShowIndex] = useState(null);
       const {resId} = useParams(); 
      
     //we will make a custome hook to fetch data
@@ -19,13 +21,18 @@ const RestaurantMenu = () =>{
     //   console.log(itemCards);
     const categories = resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c)=>
         c.card?.card?.["@type"]==="type.googleapis.com/swiggy.presentation.food.v2.ItemCategory");
-      console.log(categories);
+      // console.log(categories);
+
+      //props drilling example
+      const dummy = "dummy data";
        return (
         <div className="text-center">
             <h1 className="font-bold my-6 text-2xl p-1">{name}</h1>
             <p className="text-lg font-bold">{cuisines.join(",")} - {costForTwoMessage}</p>
-            <ul>{categories.map((category)=>
-                <RestaurantCategory key={category?.card?.card.tilte} data={category?.card?.card}/>
+            {/* from where am i getting index? Its a second parameter of map func */}
+            <ul>{categories.map((category,index)=>
+                <RestaurantCategory key={category?.card?.card.title} itemPresent={index===showIndex && true} 
+                setShowIndex={()=>{setShowIndex(index)}} dummy={dummy} data={category?.card?.card}/>
             )}</ul>
         </div>
         //without tailwind old code

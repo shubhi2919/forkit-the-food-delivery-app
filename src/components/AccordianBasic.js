@@ -1,16 +1,14 @@
 import ItemList from "./ItemList";
-// import { useState } from "react";
-//dummy data is to be paased to itemlist using it to show props drilling
-const RestaurantCategory = ({data,itemPresent,setShowIndex,dummy}) =>{
+import { useState } from "react";
+
+const RestaurantCategory = ({data}) =>{
     // console.log(data);
    //to close and open the accordian we need state variable
-   //we dont need state variable here as we are getting it from RestaurantMenu.js ie the parent component
-//    const [itemPresent,setItemPresent] = useState(false);
+   const [itemPresent,setItemPresent] = useState(false);
     const handleClick = () =>{
     //if itemPresent is true then set it to false and vice versa
     //this will toggle the value of itemPresent
-    // setItemPresent(!itemPresent);
-    setShowIndex();
+    setItemPresent(!itemPresent);
 }
     return (
         <div>
@@ -21,7 +19,7 @@ const RestaurantCategory = ({data,itemPresent,setShowIndex,dummy}) =>{
                 <span>{itemPresent?"⬆️":"⬇️"}</span>
                </div>
                  {/* accordian body */}
-                 {itemPresent &&  <ItemList dummy={dummy} items={data.itemCards}/>}
+                 {itemPresent &&  <ItemList items={data.itemCards}/>}
                 
             </div>
            

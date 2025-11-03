@@ -1,9 +1,10 @@
 import RestaurantCard , {isRestaurantOpen} from "./RestaurantCard";
 import resData from "../utils/mockData";
-import { use, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 
 
@@ -30,12 +31,12 @@ const RestaurantOpenComponent = isRestaurantOpen(RestaurantCard)
     fetchData();
    },
    []);
-   console.log("this is list of restaurants",listOfRestaurants);
+  //  console.log("this is list of restaurants",listOfRestaurants);
  //use async function to fetch data from API and await for the response
    const fetchData = async() =>{
       const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=17.406498&lng=78.47724389999999&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
       const json = await data.json();
-      console.log(json);
+      // console.log(json);
 // data.cards[2].card.card.gridElements.infoWithStyle.restaurants
       //update the state variable as soon as we get data from api with setListOfRestaurants
       // setListOfRestaurants( json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants);//do same for filterRestaurants 
@@ -58,7 +59,8 @@ const RestaurantOpenComponent = isRestaurantOpen(RestaurantCard)
   //   //   </div>
   //   // )
   //  }
-
+//set userInfo from loggeninuser to whatever we give in input box here
+const {loggedInuser,setUserInfo} = useContext(UserContext);
   //get the online status using custom hook
 const onlineStatus = useOnlineStatus();
 if(onlineStatus === false){
@@ -90,6 +92,11 @@ if(onlineStatus === false){
               // setSearchText(""); //clear the search box after search
             }
           } >Search</button>
+        </div>
+        {/* user name change code */}
+        <div>
+          <label>Username : </label>
+          <input value={loggedInuser} className="p-2 border border-solid border-black" onChange={(e)=>setUserInfo(e.target.value)}/>
         </div>
         <div>
             <button className="filter-btn  m-4 px-4 py-0.5 bg-green-100 rounded-lg" 
